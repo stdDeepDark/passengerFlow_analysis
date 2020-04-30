@@ -16,6 +16,9 @@
   "dependencies": {
     "echarts": "^4.5.0",
     "element-ui": "^2.13.0",
+    "sass-loader": "^8.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
     "v-charts": "^1.19.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
