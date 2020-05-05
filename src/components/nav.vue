@@ -45,27 +45,27 @@
                             <i style="margin-left:-55px"class="el-icon-s-home"></i>
                             <span slot="title">首页</span>
                         </el-menu-item>
-                        <el-menu-item index="2">
+                        <el-menu-item index="2" :disabled="auth1">
                             <i class="el-icon-map-location"></i>
                             <span slot="title">客流热点分析</span>
                         </el-menu-item>
-                        <el-menu-item index="3" >
+                        <el-menu-item index="3" :disabled="auth1">
                             <i class="el-icon-data-line"></i>
                             <span slot="title">客流趋势分析</span>
                         </el-menu-item>
-                        <el-menu-item index="4">
+                        <el-menu-item index="4" :disabled="auth1">
                             <i class="el-icon-pie-chart"></i>
                             <span slot="title">客流属性分析</span>
                         </el-menu-item>
-                        <el-menu-item index="5">
+                        <el-menu-item index="5" :disabled="auth1">
                             <i class="el-icon-s-shop"></i>
                             <span slot="title">门店信息管理</span>
                         </el-menu-item>
-                        <el-menu-item index="6">
+                        <el-menu-item index="6" :disabled="auth1">
                             <i class="el-icon-s-custom"></i>
                             <span slot="title">顾客信息管理</span>
                         </el-menu-item> 
-                        <el-menu-item index="7">
+                        <el-menu-item index="7" :disabled="auth1">
                             <i class="el-icon-user"></i>
                             <span slot="title">用户权限管理</span>
                         </el-menu-item>
@@ -80,9 +80,19 @@
 export default {
     data(){
         return{
+            auth1:true,
         }
     }, 
     props: ['active'],
+    mounted(){
+        let getFlag = localStorage.getItem("Flag");
+        if(getFlag==="isLogin"){
+          
+          this.auth1=false
+        }else{
+          this.auth1=true
+        }  
+    },
     methods: {
         f(i){
             this.active=i;

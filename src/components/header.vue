@@ -29,7 +29,7 @@
                 <!--<el-link style="position:absolute; margin-top:5px; right:-60%; font-size:20px;" type="warning" href="#/hotSpot/"><i class="el-icon-user-solid"></i>登录</el-link>-->
               </div>
             </el-header>
-                <el-dialog width="450px" title="注册" :close-on-click-modal="false" :visible.sync="loginFormVisible">
+                <el-dialog width="450px" title="登录" :close-on-click-modal="false" :visible.sync="loginFormVisible">
                                 <el-form style="margin-left:30px; width:300px" :inline="false" :model="loginForm">
                                   <el-form-item prop="account" label="账号" label-height="10px" :label-width="formLabelWidth">
                                     <el-input v-model="loginForm.account" size="medium" autocomplete="off"></el-input>
@@ -43,7 +43,7 @@
                                   <el-button type="primary" @click="loginConfirm">登 录</el-button>
                                 </div>
                   </el-dialog>
-                  <el-dialog width="450px" title="注册" :close-on-click-modal="false" :visible.sync="loginFormVisible">
+                  <el-dialog width="450px" title="注册" :close-on-click-modal="false" :visible.sync="passwordEditFormVisible">
                                 <el-form style="margin-left:30px; width:300px" :inline="false" :model="loginForm">
                                   <el-form-item prop="password" label="新密码" label-height="10px" :label-width="formLabelWidth">
                                     <el-input v-model="loginForm.password" type="password" size="medium" autocomplete="off"></el-input>
@@ -54,7 +54,7 @@
                                 </el-form>
                                 <div slot="footer" class="dialog-footer">
                                   <el-button @click="loginFormVisible = false">取 消</el-button>
-                                  <el-button type="primary" @click="loginConfirm">登 录</el-button>
+                                  <el-button type="primary" @click="passwordEditConfirm">确认修改</el-button>
                                 </div>
                   </el-dialog>
                 <el-dialog width="500px" title="注册" :close-on-click-modal="false" :visible.sync="registerFormVisible">
@@ -97,6 +97,7 @@ export default {
           account:"",
           password:""
         },
+        passwordEditFormVisible:false,
         registerFormVisible:false,
         registerForm:{
           account:"",
@@ -126,8 +127,21 @@ export default {
       }
     },
     mounted(){
-        document.getElementById("in").style.visibility="visible"
-        document.getElementById("out").style.visibility="hidden"
+        let getFlag = localStorage.getItem("Flag");
+        if(getFlag==="isLogin"){
+          
+          document.getElementById("in").style.visibility="hidden"
+          document.getElementById("out").style.visibility="visible"
+        }else{
+          document.getElementById("in").style.visibility="visible"
+          document.getElementById("out").style.visibility="hidden"
+        }  
+        console.log("yawad")
+        let getlogin = localStorage.getItem("login");
+          if(getlogin==="on"){
+            this.loginFormVisible=true
+            localStorage.setItem("login", "off");
+          }
     },
     methods:{
       handleCommand(command) {
@@ -141,7 +155,10 @@ export default {
         }else if(command=="logout"){
             document.getElementById("in").style.visibility="visible"
             document.getElementById("out").style.visibility="hidden"
-             this.$message({
+
+            localStorage.removeItem("Flag")
+            location.reload()
+            this.$message({
               message: '退出成功',
               type: 'success'
             });
@@ -151,10 +168,16 @@ export default {
           document.getElementById("in").style.visibility="hidden"
           document.getElementById("out").style.visibility="visible"
           this.loginFormVisible=false
+
+          localStorage.setItem("Flag", "isLogin");
+          location.reload()
           this.$message({
             message: '登录成功',
             type: 'success'
           });
+      },
+      passwordEditConfirm(){
+
       }
     }
 }
