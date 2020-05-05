@@ -7,7 +7,7 @@
                   <el-dialog
                     title="顾客删除确认"
                     :visible.sync="dialogVisible"
-                    width="30%">
+                    width="400px">
                     <span>{{deleinfo}}</span>
                     <span slot="footer" class="dialog-footer">
                       <el-button @click="dialogVisible = false">取 消</el-button>

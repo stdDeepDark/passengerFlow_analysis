@@ -18,7 +18,7 @@
 
                 <el-dropdown id="out" style="position:absolute; color:#E6A23C; margin-top:5px; right:-60%; font-size:20px;" @command="handleCommand">
                   <span class="el-dropdown-link">
-                    <i class="el-icon-user-solid"></i>信息<i class="el-icon-arrow-down el-icon--right"></i>
+                    <i class="el-icon-user-solid"></i>{{name}}<i class="el-icon-arrow-down el-icon--right"></i>
                   </span>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item command="info">个人信息</el-dropdown-item>
@@ -43,17 +43,17 @@
                                   <el-button type="primary" @click="loginConfirm">登 录</el-button>
                                 </div>
                   </el-dialog>
-                  <el-dialog width="450px" title="注册" :close-on-click-modal="false" :visible.sync="passwordEditFormVisible">
-                                <el-form style="margin-left:30px; width:300px" :inline="false" :model="loginForm">
+                  <el-dialog width="450px" title="修改密码" :close-on-click-modal="false" :visible.sync="passwordEditFormVisible">
+                                <el-form style="margin-left:30px; width:300px" :inline="false" :model="passwordEditForm">
                                   <el-form-item prop="password" label="新密码" label-height="10px" :label-width="formLabelWidth">
-                                    <el-input v-model="loginForm.password" type="password" size="medium" autocomplete="off"></el-input>
+                                    <el-input v-model="passwordEditForm.password" type="password" size="medium" autocomplete="off"></el-input>
                                   </el-form-item>
                                   <el-form-item prop="confirmPassword" label="确认密码" label-height="10px" :label-width="formLabelWidth">
-                                    <el-input v-model="loginForm.confirmPassword" type="password" size="medium" autocomplete="off"></el-input>
+                                    <el-input v-model="passwordEditForm.confirmPassword" type="password" size="medium" autocomplete="off"></el-input>
                                   </el-form-item>
                                 </el-form>
                                 <div slot="footer" class="dialog-footer">
-                                  <el-button @click="loginFormVisible = false">取 消</el-button>
+                                  <el-button @click="passwordEditFormVisible = false">取 消</el-button>
                                   <el-button type="primary" @click="passwordEditConfirm">确认修改</el-button>
                                 </div>
                   </el-dialog>
@@ -91,11 +91,16 @@
 export default {
     data () {
       return {
+        name:"",
         formLabelWidth:"80px",
         loginFormVisible:false,
         loginForm:{
           account:"",
           password:""
+        },
+        passwordEditForm:{
+          password:"",
+          confirmPassword:""
         },
         passwordEditFormVisible:false,
         registerFormVisible:false,
@@ -129,7 +134,7 @@ export default {
     mounted(){
         let getFlag = localStorage.getItem("Flag");
         if(getFlag==="isLogin"){
-          
+          this.name = localStorage.getItem("name");
           document.getElementById("in").style.visibility="hidden"
           document.getElementById("out").style.visibility="visible"
         }else{
@@ -162,6 +167,8 @@ export default {
               message: '退出成功',
               type: 'success'
             });
+        }else if(command=="passwordEdit"){
+            this.passwordEditFormVisible=true
         }
       },
       loginConfirm(){
@@ -170,6 +177,8 @@ export default {
           this.loginFormVisible=false
 
           localStorage.setItem("Flag", "isLogin");
+          localStorage.setItem("name", "张三");
+          this.name="张三"
           location.reload()
           this.$message({
             message: '登录成功',

@@ -7,7 +7,7 @@
                   <el-dialog
                     title="大门删除确认"
                     :visible.sync="doorDialogVisible"
-                    width="30%">
+                    width="400px">
                     <span>{{deleinfo}}</span>
                     <span slot="footer" class="dialog-footer">
                       <el-button @click="doorDialogVisible = false">取 消</el-button>
@@ -17,7 +17,7 @@
                   <el-dialog
                     title="摄像头删除确认"
                     :visible.sync="cameraDialogVisible"
-                    width="30%">
+                    width="400px">
                     <span>{{deleinfo}}</span>
                     <span slot="footer" class="dialog-footer">
                       <el-button @click="cameraDialogVisible = false">取 消</el-button>
@@ -46,6 +46,8 @@
                                   </el-form-item>
                                   <el-form-item prop="time" label="上传时间" label-height="10px" :label-width="formLabelWidth">
                                     <el-time-picker
+                                      format="HH:mm"
+                                      value-format="HH:mm"
                                       v-model="cameraForm.time"
                                       size="medium"
                                       placeholder="点击设定时间">
@@ -226,7 +228,7 @@ export default {
         tableData_Camera:[
           {
             name:"1号摄像头",
-            time:new time(18,0),
+            time:"18:00",
             door:"北门",
             port:"出口"
           },
@@ -296,6 +298,7 @@ export default {
         }
       },
       cameraEditConfirm(){
+          console.log(this.cameraForm.time)
           if(this.isNew){
               this.tableData_Camera.push(this.cameraForm)
           }else{

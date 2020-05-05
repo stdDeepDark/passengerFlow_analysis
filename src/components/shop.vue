@@ -7,7 +7,7 @@
                   <el-dialog
                     title="门店删除确认"
                     :visible.sync="dialogVisible"
-                    width="30%">
+                    width="400px">
                     <span>{{deleinfo}}</span>
                     <span slot="footer" class="dialog-footer">
                       <el-button @click="dialogVisible = false">取 消</el-button>
@@ -15,7 +15,7 @@
                     </span>
                   </el-dialog>
 
-                  <el-dialog  height="700px"  width="60%" :title="editTitle" :close-on-click-modal="false"	 :visible.sync="dialogFormVisible">
+                  <el-dialog  height="700px"  width="800px" :title="editTitle" :close-on-click-modal="false"	 :visible.sync="dialogFormVisible">
                                 <el-form style="width:430px" :inline="false" :rules="rules" :model="form">
                                   <el-form-item prop="name" label="店名" label-height="10px" :label-width="formLabelWidth">
                                     <el-input v-model="form.name" size="medium" autocomplete="off"></el-input>
