@@ -97,9 +97,10 @@ export default {
         }
         //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
         var markerClusterer = new BMapLib.MarkerClusterer(this.map, {markers:markers});
-/*
-      for(let i=0; i<points.length; i++){
-        this.addMarker(new BMap.Point(points[i]['lng'],points[i]['lat']),points[i]['name']+":"+points[i]['count']);
+
+      /*for(let i=0; i<points.length; i++){
+         this.map.addOverlay(markers[i]);
+        //this.addMarker(new BMap.Point(points[i]['lng'],points[i]['lat']),points[i]['name']+":"+points[i]['count']);
       }*/
       //closeHeatmap();
     
@@ -133,10 +134,17 @@ export default {
         //imageOffset: new BMap.Size(0, 0)   // 设置图片偏移    
         });      
         // 创建标注对象并添加到地图   
-        var marker = new BMap.Marker(point, {icon: myIcon, title:name}); 
+        var marker = new BMap.Marker(point, {icon: myIcon, title:"点击进入该门店的设备管理页面"}); 
         marker.setLabel(this.setLabelStyle(name))
-        marker.addEventListener("mouseover", function(e){    
-            console.log(e)    
+        var that =this
+        marker.addEventListener("click", function(e){    
+            that.$router.push({  
+            path:'/device',  
+            name: 'device',  
+            params: {   
+                name:name.split(":")[0],     
+            }
+          });    
         });   
         return marker
         //this.map.addOverlay(marker);    
